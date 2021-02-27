@@ -6,10 +6,34 @@ define player = Character(_("Я"), color="#c8c8ff")
 # otherwise.
 default book = False
 
-# screen select_hobby():
-#     vbox:
-#         for hobby in db_hobby:
-#             textbutton hobby action Null
+init python:
+    def set_player_hobby(hobby):
+        global player_hobby
+        player_hobby = hobby
+        renpy.jump("hobby_chosen")
+
+
+screen select_hobby():
+    frame:
+        hbox:
+            vbox:
+                textbutton db_hobby[0] action Function(set_player_hobby, db_hobby[0])
+                textbutton db_hobby[1] action Function(set_player_hobby, db_hobby[1])
+                textbutton db_hobby[2] action Function(set_player_hobby, db_hobby[2])
+                textbutton db_hobby[3] action Function(set_player_hobby, db_hobby[3])
+                textbutton db_hobby[4] action Function(set_player_hobby, db_hobby[4])
+            vbox:
+                textbutton db_hobby[5] action Function(set_player_hobby, db_hobby[5])
+                textbutton db_hobby[6] action Function(set_player_hobby, db_hobby[6])
+                textbutton db_hobby[7] action Function(set_player_hobby, db_hobby[7])
+                textbutton db_hobby[8] action Function(set_player_hobby, db_hobby[8])
+                textbutton db_hobby[9] action Function(set_player_hobby, db_hobby[9])
+            vbox:
+                textbutton db_hobby[10] action Function(set_player_hobby, db_hobby[10])
+                textbutton db_hobby[11] action Function(set_player_hobby, db_hobby[11])
+                textbutton db_hobby[12] action Function(set_player_hobby, db_hobby[12])
+                textbutton db_hobby[13] action Function(set_player_hobby, db_hobby[13])
+                textbutton db_hobby[14] action Function(set_player_hobby, db_hobby[14])
 
 # The game starts here.
 label start:
@@ -49,8 +73,6 @@ label start:
 
     service "Добро пожаловать, [player_name], заполните анкету!"
 
-    # service "Выберите свой пол"
-
     menu:
         "Выберите свой пол"
 
@@ -60,14 +82,40 @@ label start:
         "Женщина":
             $ player_gender = u"Жен"
 
+    python:
+        global player_hobby
+        player_hobby = None
+label choose_hobby:
+    show screen select_hobby
     service "Выберите свои интересы из списка"
 
-    $ choice = renpy.display_menu(list_to_menuitems(db_hobby))
-    # show screen select_hobby
+    python:
+        global player_hobby
+        if player_hobby is None:
+            renpy.jump("choose_hobby")
+label hobby_chosen:
+    hide screen select_hobby
 
-    service "Выберите возрастную категорию партнера"
+    menu:
+        "Выберите возрастную категорию партнера"
 
-    service "Кого ищете?"
+        "Юные и неопытные":
+            $ player_preference_age = "young"
+
+        "Опытные и зрелые":
+            $ player_preference_age = "mature"
+
+    menu:
+        "Кого ищете?"
+
+        "Мужчину":
+            $ player_preference_gender = u"Муж"
+
+        "Женщину":
+            $ player_preference_age = u"Жен"
+
+        "Не важно":
+            $ player_preference_age = "both"
 
     service "Анкета заполнена, спасибо! Листайте анкеты, выбирайте \
             понравившегося человека и, если Вы тоже понравитесь ему, \
@@ -77,6 +125,9 @@ label start:
             \"Фильтры\"."
 
     service "На этом все, удачи!"
+
+    $ player_profile = Profile("player", player_name, 18, player_hobby, None)
+    $ player = Character(player_profile.get_name())
 
     player "Ну-с, посмотрим."
 

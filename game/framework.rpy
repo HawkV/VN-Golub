@@ -28,8 +28,7 @@ init python:
             self.name = name
             self.hobbies = hobbies
             self.age = age
-            # self.photo = Image(photo) #im.Scale(photo, PHOTO_WIDTH, PHOTO_HEIGHT)
-            self.photo = photo #im.Scale(photo, PHOTO_WIDTH, PHOTO_HEIGHT)
+            self.photo = photo
 
         def get_name(self):
             return self.name

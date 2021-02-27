@@ -1,4 +1,6 @@
-db_hobby = [
+import random
+
+db_hobby_full = [
     u"Автомобили",
     u"Ароматерапия",
     u"Астрономия",
@@ -122,3 +124,11 @@ db_hobby = [
     u"Шитье",
     u"Вышивание",
 ]
+
+hobbies_len = len(db_hobby_full)
+db_hobby = []
+while len(db_hobby) < 15:
+    picked_hobby = db_hobby_full[random.randrange(0, hobbies_len, 1)]
+    if picked_hobby not in db_hobby:
+        db_hobby.append(picked_hobby)
+
