@@ -4,9 +4,10 @@ init python:
     from db_names_male   import db_names_male
     from db_names_female import db_names_female
     from db_hobby        import db_hobby
+    from utils           import list_to_menuitems
 
-    HOBBIES_MIN     = 2
-    HOBBIES_MAX     = 8
+    HOBBIES_MIN     = 3
+    HOBBIES_MAX     = 3
     AGE_MIN         = 18
     AGE_MATURE      = 35
     AGE_MAX         = 55
