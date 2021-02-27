@@ -4,3 +4,4 @@
 /game/saves/
 /errors.txt
 /traceback.txt
+*.rpymc
