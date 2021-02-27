@@ -6,14 +6,19 @@ define m = Character(_("Me"), color="#c8c8ff")
 # otherwise.
 default book = False
 
-
 # The game starts here.
 label start:
 
     # Start by playing some music.
-    play music "illurock.opus"
+    # play music "illurock.opus"
 
     scene bg lecturehall
+
+    $ profile = Profile.generate()
+    $ prof_char = Character(profile.get_name())
+    $ renpy.show(profile.get_photo())
+    $ prof_char(profile.to_string())
+
     with fade
 
     "It's only when I hear the sounds of shuffling feet and supplies being put away that I realize that the lecture's over."
