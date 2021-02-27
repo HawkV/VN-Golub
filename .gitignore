@@ -2,3 +2,5 @@
 *.rpyc
 /log.txt
 /game/saves/
+/errors.txt
+/traceback.txt
