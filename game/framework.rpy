@@ -36,6 +36,9 @@ init python:
         def get_photo(self):
             return self.photo
 
+        def get_photo_filename(self):
+            return "{wo_ext}.jpg".format(wo_ext=self.photo)
+
         def to_string(self):
             return u"Пол: {gender}, Имя: {name}, Возраст: {age}\nИнтересы: {hobbies}\n".format(
                 gender=self.gender,
@@ -45,9 +48,16 @@ init python:
             )
 
         @staticmethod
-        def generate():
-            gender = random.choice([u"Муж", u"Жен"])
-            age = random.randrange(AGE_MIN, AGE_MAX + 1, 1)
+        def generate(pref_gender, pref_age):
+            if pref_gender == "both":
+                gender = random.choice([u"Муж", u"Жен"])
+            else:
+                gender = pref_gender
+
+            if pref_age == "young":
+                age = random.randrange(AGE_MIN, AGE_MATURE, 1)
+            else:
+                age = random.randrange(AGE_MATURE, AGE_MAX + 1, 1)
             if (gender == u"Муж"):
                 name = random.choice(db_names_male)
                 if (age < AGE_MATURE):
@@ -73,4 +83,49 @@ init python:
                 hobbies.append(random.choice(db_hobby))
 
             return Profile(gender, name, age, hobbies, photo)
+
+    class Displayable():
+        def __init__(self, width, height):
+            self.width = width
+            self.height = height
+            self.anchor_x = width / 2
+            self.anchor_y = height / 2
+
+        def get_displayable(self):
+            return self.displayable
+
+        def draw(self, width, height, st, at, renpy_render, x, y):
+            render_object = renpy.render(self.displayable, width, height, st,
+             at)
+            pos = (
+                int(x - self.anchor_x),
+                int(y - self.anchor_y)
+            )
+            renpy_render.blit(render_object, pos)
+
+    class Primitive(Displayable):
+        def __init__(self, color, width, height):
+            super(Primitive, self).__init__(width, height)
+            red = color & 0xFF0000 >> 16
+            green = color & 0x00FF00 >> 8
+            blue = color & 0x0000FF
+            renpy_color = "#{red:02X}{green:02X}{blue:02X}".format(red=red,
+             green=green, blue=blue)
+            self.displayable = Solid(renpy_color, xsize=width, ysize=height)
+
+    class Sprite(Displayable):
+        def __init__(self, filename, width, height):
+            super(Sprite, self).__init__(width, height)
+            self.displayable = im.Scale(filename, width, height)
+
+    class DisplayablesKeeper():
+        def __init__(self):
+            self.displayables = []
+
+        def add(self, *displayables):
+            for displayable in displayables:
+                self.displayables.append(displayable.get_displayable())
+
+        def get_displayables(self):
+            return self.displayables
 

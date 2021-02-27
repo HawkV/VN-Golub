@@ -1,5 +1,4 @@
 # Declare characters used by this game.
-define service = Character(_("Сайт знакомств"), color="#c8ffc8")
 define player = Character(_("Я"), color="#c8c8ff")
 
 # This is a variable that is True if you've compared a VN to a book, and False
@@ -103,10 +102,10 @@ label hobby_chosen:
             $ player_preference_gender = u"Муж"
 
         "Женщину":
-            $ player_preference_age = u"Жен"
+            $ player_preference_gender = u"Жен"
 
         "Не важно":
-            $ player_preference_age = "both"
+            $ player_preference_gender = "both"
 
     service "Анкета заполнена, спасибо! Листайте анкеты, выбирайте \
             понравившегося человека и, если Вы тоже понравитесь ему, \
@@ -117,7 +116,7 @@ label hobby_chosen:
 
     service "На этом все, удачи!"
 
-    $ player_profile = Profile("player", player_name, 18, player_hobby, None)
+    $ player_profile = Profile("player", player_name, 18, [player_hobby], None)
     $ player = Character(player_profile.get_name())
 
     player "Ну-с, посмотрим."
