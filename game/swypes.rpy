@@ -25,7 +25,7 @@ init python:
             delta_time = st - self.oldtime
             self.oldtime = st
 
-            self.avatar.draw(width, height, st, at, renpy_render, 640, 360)
+            self.avatar.draw(width, height, st, at, renpy_render, 640, 260)
 
             renpy.redraw(self, 0)
 
@@ -35,8 +35,21 @@ init python:
             raise renpy.IgnoreEvent()
 
 screen comp_avatar():
-    default swype_displayable = SwypeDisplayable(comp_profile.get_photo_filename(), 200, 200)
+    default swype_displayable = SwypeDisplayable(comp_profile.get_photo_filename(), 400, 400)
     add swype_displayable
+
+
+    imagebutton:
+      auto "dislike_%s.png"
+      action ShowMenu('preferences')
+      yalign 0.5
+      xalign 0.05
+
+    imagebutton:
+      auto "like_%s.png"
+      action ShowMenu('save')
+      yalign 0.5
+      xalign 0.95
 
 label swypes:
 label generate_profile:
@@ -44,6 +57,7 @@ label generate_profile:
      player_preference_age)
     $ comp_char = Character(comp_profile.get_name())
 
+    scene bg
     # $ comp_avatar = Image(comp_profile.get_photo())
     # $ renpy.show(comp_profile.get_photo())
     # show comp_avatar:

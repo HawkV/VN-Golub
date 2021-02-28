@@ -81,6 +81,51 @@ style frame:
 ## In-game screens
 ################################################################################
 
+################################################################################
+## Custom interface screens
+################################################################################
+screen hello_world():
+  frame:
+    xpadding 10
+    ypadding 10
+    xalign 0.5
+    yalign 0.5
+
+    vbox:
+      text "Display"
+      null height 10
+
+      textbutton "Fullscreen"
+      textbutton "Window"
+
+screen grid_test:
+  grid 2 3:
+    text "Top-Left"
+    text "Top-Right"
+
+    text "Center-Left"
+    text "Center-Right"
+
+    text "Bottom-Left"
+    text "Bottom-Right"
+
+screen hbox_text():
+  hbox:
+    text "Left"
+    text "Right"
+
+screen gui_game_menu():
+  frame:
+    xpadding 10
+    ypadding 10
+    xalign 0.05
+    yalign 0.05
+
+    vbox xalign 1.0 yalign 1.0 spacing 5:
+      imagebutton auto "save_%s.png"
+      imagebutton auto "prefs_%s.png"
+      imagebutton auto "skip_%s.png"
+      imagebutton auto "afm_%s.png"
 
 ## Say screen ##################################################################
 ##
@@ -98,11 +143,13 @@ style frame:
 screen say(who, what):
     style_prefix "say"
 
+
     window:
         id "window"
 
-        if who is not None:
+        background Frame("box.png", 50, 50, tile=True)
 
+        if who is not None:
             window:
                 style "namebox"
                 text who id "who"
@@ -170,6 +217,7 @@ screen input(prompt):
     style_prefix "input"
 
     window:
+        background Frame("box.png", 50, 50, outlines=[(2, "#FFF", 0, 0)])
 
         vbox:
             xalign gui.dialogue_text_xalign

@@ -14,6 +14,9 @@ init python:
 
 screen select_hobby():
     frame:
+        xalign 0.5
+        yalign 0.3
+
         hbox:
             vbox:
                 for hobby in db_hobby[0:5]:
@@ -31,7 +34,7 @@ label prologue:
     # Start by playing some music.
     # play music "illurock.opus"
 
-    scene bg lecturehall
+    scene bg default
 
     # $ profile = Profile.generate()
     # $ prof_char = Character(profile.get_name())
