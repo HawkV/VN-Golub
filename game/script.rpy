@@ -7,5 +7,7 @@ label prologue_end:
     jump swypes
 
 label swypes_end:
-    return
+    jump dialogue
 
+label dialogue_end:
+    return
