@@ -41,6 +41,9 @@ init python:
         def get_name(self):
             return self.name
 
+        def get_hobby(self):
+            return self.hobbies[0]
+
         def get_photo(self):
             return self.photo
 
@@ -87,8 +90,11 @@ init python:
              photo_prefix=photo_prefix, photo_num=photo_num)
 
             hobbies = []
-            for i in range(random.randrange(HOBBIES_MIN, HOBBIES_MAX + 1, 1)):
-                hobbies.append(random.choice(db_hobby))
+
+            hobby_count = random.randrange(HOBBIES_MIN, HOBBIES_MAX + 1, 1)
+
+            hobby_indices = random.sample(range(1, len(db_hobby)), hobby_count)
+            hobbies = [db_hobby[i] for i in hobby_indices]
 
             return Profile(gender, name, age, hobbies, photo)
 

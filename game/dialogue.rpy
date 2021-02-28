@@ -17,6 +17,8 @@ label dialogue:
     $ current_index = 0
 label question:
     python:
+        player_name = player_profile.get_name()
+        player_hobby = player_profile.get_hobby().lower()
         choises = []
         for choise_data in db_dialogue[current_index]:
             choises.append((choise_data["text"], choise_data["text"]));
@@ -26,6 +28,7 @@ label question:
 
     if choice == u"В чёрный список":
         jump swypes
+
 
     python:
         for choice_data_iter in db_dialogue[current_index]:
@@ -39,8 +42,30 @@ label question:
         if "dating" in choce_data["answers"][answer_index]:
             dating = choce_data["answers"][answer_index]["dating"]
             renpy.jump("maybe_dating")
-    $ comp_char(choce_data["answers"][answer_index]["text"])
+
+        text = choce_data["answers"][answer_index]["text"].split('. ')
+
+        better_text = []
+        index = 0
+        symbol_limit = 200
+
+        chunk = ""
+
+        for part in text:
+          if len(chunk) + len(part) > symbol_limit:
+            better_text.append(chunk)
+            chunk = ""
+
+          chunk += part + '. '
+
+        if chunk != "":
+          better_text.append(chunk)
+
+        for part in better_text:
+          comp_char(part)
+
     python:
+
         if "nextIndex" in choce_data["answers"][answer_index]:
             current_index = choce_data["answers"][answer_index]["nextIndex"]
         else:
