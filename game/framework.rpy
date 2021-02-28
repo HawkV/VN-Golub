@@ -22,6 +22,14 @@ init python:
     PHOTO_WIDTH      = 512
     PHOTO_HEIGHT     = 512
 
+    def years_descr(years):
+        if years in [21, 31, 41, 51]:
+            return u"год"
+        elif years in [22, 23, 24, 32, 33, 34, 42, 43, 44, 52, 53, 54]:
+            return u"года"
+
+        return u"лет"
+
     class Profile():
         def __init__(self, gender, name, age, hobbies, photo):
             self.gender = gender
@@ -40,10 +48,10 @@ init python:
             return "{wo_ext}.jpg".format(wo_ext=self.photo)
 
         def to_string(self):
-            return u"Пол: {gender}, Имя: {name}, Возраст: {age}\nИнтересы: {hobbies}\n".format(
-                gender=self.gender,
+            return u"{name}, {age} {years_descr}\nИнтересы: {hobbies}\n".format(
                 name=self.name,
                 age=self.age,
+                years_descr=years_descr(self.age),
                 hobbies=", ".join(self.hobbies)
             )
 
@@ -118,4 +126,39 @@ init python:
 
         def get_displayables(self):
             return self.displayables
+
+    class AvatarDisplayable(renpy.Displayable):
+        def __init__(self, filename, width, height):
+            renpy.Displayable.__init__(self)
+
+            self.avatar = Sprite(filename, width, height)
+
+            self.displayables_keeper = DisplayablesKeeper()
+
+            self.displayables_keeper.add(
+                self.avatar
+            )
+
+            self.oldtime = None
+
+        def visit(self):
+            return self.displayables_keeper.get_displayables()
+
+        def render(self, width, height, st, at):
+            renpy_render = renpy.Render(width, height)
+
+            if self.oldtime is None:
+                self.oldtime = st
+
+            delta_time = st - self.oldtime
+            self.oldtime = st
+
+            self.avatar.draw(width, height, st, at, renpy_render, 640, 260)
+
+            renpy.redraw(self, 0)
+
+            return renpy_render
+
+        def event(self, ev, x, y, st):
+            raise renpy.IgnoreEvent()
 
