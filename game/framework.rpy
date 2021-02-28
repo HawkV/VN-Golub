@@ -6,21 +6,21 @@ init python:
     from db_hobby        import db_hobby
     from utils           import list_to_menuitems
 
-    HOBBIES_MIN     = 3
-    HOBBIES_MAX     = 3
-    AGE_MIN         = 18
-    AGE_MATURE      = 35
-    AGE_MAX         = 55
-    PHOTOS_COUNT_MY = 49
-    PHOTOS_COUNT_MM = 22
-    PHOTOS_COUNT_FY = 64
-    PHOTOS_COUNT_FM = 16
+    HOBBIES_MIN      = 3
+    HOBBIES_MAX      = 3
+    AGE_MIN          = 18
+    AGE_MATURE       = 35
+    AGE_MAX          = 55
+    PHOTOS_COUNT_MY  = 49
+    PHOTOS_COUNT_MM  = 22
+    PHOTOS_COUNT_FY  = 64
+    PHOTOS_COUNT_FM  = 16
     PHOTOS_PREFIX_MY = "my"
     PHOTOS_PREFIX_MM = "mm"
     PHOTOS_PREFIX_FY = "fy"
     PHOTOS_PREFIX_FM = "fm"
-    PHOTO_WIDTH = 512
-    PHOTO_HEIGHT = 512
+    PHOTO_WIDTH      = 512
+    PHOTO_HEIGHT     = 512
 
     class Profile():
         def __init__(self, gender, name, age, hobbies, photo):
@@ -102,16 +102,6 @@ init python:
                 int(y - self.anchor_y)
             )
             renpy_render.blit(render_object, pos)
-
-    class Primitive(Displayable):
-        def __init__(self, color, width, height):
-            super(Primitive, self).__init__(width, height)
-            red = color & 0xFF0000 >> 16
-            green = color & 0x00FF00 >> 8
-            blue = color & 0x0000FF
-            renpy_color = "#{red:02X}{green:02X}{blue:02X}".format(red=red,
-             green=green, blue=blue)
-            self.displayable = Solid(renpy_color, xsize=width, ysize=height)
 
     class Sprite(Displayable):
         def __init__(self, filename, width, height):

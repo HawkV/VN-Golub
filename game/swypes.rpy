@@ -34,36 +34,53 @@ init python:
         def event(self, ev, x, y, st):
             raise renpy.IgnoreEvent()
 
-screen comp_avatar():
-    default swype_displayable = SwypeDisplayable(comp_profile.get_photo_filename(), 400, 400)
-    add swype_displayable
+    def like():
+        global liked
+        liked = True
+        renpy.jump("like")
 
+screen comp_avatar():
+    default swype_displayable = SwypeDisplayable(
+     comp_profile.get_photo_filename(), 400, 400)
+    add swype_displayable
 
     imagebutton:
       auto "dislike_%s.png"
-      action ShowMenu('preferences')
+      action Jump("generate_profile")
       yalign 0.5
       xalign 0.05
 
     imagebutton:
       auto "like_%s.png"
-      action ShowMenu('save')
+      action Function(like)
       yalign 0.5
       xalign 0.95
 
 label swypes:
+    scene bg
 label generate_profile:
+    python:
+        global liked
+        liked = False
+    hide screen comp_avatar
     $ comp_profile = Profile.generate(player_preference_gender,
      player_preference_age)
     $ comp_char = Character(comp_profile.get_name())
 
-    scene bg
     # $ comp_avatar = Image(comp_profile.get_photo())
     # $ renpy.show(comp_profile.get_photo())
     # show comp_avatar:
     #     xzoom 0.5 yzoom 0.5
     show screen comp_avatar
+label choose_like_dislike:
     $ service(comp_profile.to_string())
 
+    python:
+        global liked
+        if not liked:
+            renpy.jump("choose_like_dislike")
+
+label like:
+    service "Лайк"
 
     jump swypes_end

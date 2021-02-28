@@ -1,16 +1,11 @@
 # Declare characters used by this game.
 define player = Character(_("Я"), color="#c8c8ff")
 
-# This is a variable that is True if you've compared a VN to a book, and False
-# otherwise.
-default book = False
-
 init python:
     def set_player_hobby(hobby):
         global player_hobby
         player_hobby = hobby
         renpy.jump("hobby_chosen")
-
 
 screen select_hobby():
     frame:
@@ -28,18 +23,8 @@ screen select_hobby():
                 for hobby in db_hobby[10:15]:
                     textbutton hobby action Function(set_player_hobby, hobby)
 
-# The game starts here.
 label prologue:
-
-    # Start by playing some music.
-    # play music "illurock.opus"
-
     scene bg default
-
-    # $ profile = Profile.generate()
-    # $ prof_char = Character(profile.get_name())
-    # $ renpy.show(profile.get_photo())
-    # $ prof_char(profile.to_string())
 
     player "Одиночество похоже на голод. Оно разъедает изнутри и требует \
            заполнить пустоту чем угодно, лишь бы не чувствовать эту тоску, \
