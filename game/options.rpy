@@ -12,6 +12,8 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
+define config.main_menu_music = "bruh.mp3"
+
 define config.name = _("The Question")
 
 
