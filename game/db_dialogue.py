@@ -160,5 +160,22 @@ db_dialogue = [
         { "text": u"Инормация обо мне указана в профиле. Ознакомься с ней, прежде чем написать мне снова.", "fake": 1 }
       ]
     }
+  ],
+  [
+    {
+      "text": u"Пойдёшь со мной на свидание?",
+      "answers": [
+        { "text": u"Да", "fake": 0, "dating": True},
+        { "text": u"Пошли", "fake": 0, "dating": True},
+        { "text": u"Было бы здорово", "fake": 0, "dating": True},
+        { "text": u"Да", "fake": 0, "dating": True},
+        { "text": u"Да", "fake": 0, "dating": True},
+        { "text": u"Да", "fake": 0, "dating": True},
+        { "text": u"Да", "fake": 0, "dating": True},
+        { "text": u"Я не могу", "fake": 0, "dating": False},
+        { "text": u"У меня нет времени", "fake": 0, "dating": False},
+        { "text": u"Извини, у меня кошка рожает. Давай в другой раз?", "fake": 0, "dating": False},
+      ]
+    },
   ]
 ]
