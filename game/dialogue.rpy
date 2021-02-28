@@ -20,9 +20,12 @@ label question:
         choises = []
         for choise_data in db_dialogue[current_index]:
             choises.append((choise_data["text"], choise_data["text"]));
-    # $ choises = db_dialogue[current_index]
+        choises.append((u"В чёрный список", u"В чёрный список"));
 
     $ choice = renpy.display_menu(choises)
+
+    if choice == u"В чёрный список":
+        jump swypes
 
     python:
         for choice_data_iter in db_dialogue[current_index]:
