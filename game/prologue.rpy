@@ -24,7 +24,7 @@ screen select_hobby():
                     textbutton hobby action Function(set_player_hobby, hobby)
 
 label prologue:
-    scene bg default
+    scene bg alone
 
     player "Одиночество похоже на голод. Оно разъедает изнутри и требует \
            заполнить пустоту чем угодно, лишь бы не чувствовать эту тоску, \
@@ -44,6 +44,7 @@ label prologue:
 
     player "Я боюсь ошибиться снова."
 
+    scene bg default
     service "Сайт знакомств \"В совместной изоляции\" приветствует вас!"
 
     $ player_name = renpy.input(u"Пожалуйста, введите имя")
