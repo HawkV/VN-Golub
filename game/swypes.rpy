@@ -4,6 +4,9 @@ init python:
         liked = True
         renpy.jump("like")
 
+    def dislike():
+        renpy.jump("dislike")
+
 screen comp_avatar_swype():
     default avatar_displayable = AvatarDisplayable(
      comp_profile.get_photo_filename(), 400, 400)
@@ -11,7 +14,7 @@ screen comp_avatar_swype():
 
     imagebutton:
       auto "dislike_%s.png"
-      action Jump("generate_profile")
+      action Function(dislike)
       yalign 0.5
       xalign 0.05
 
@@ -20,6 +23,11 @@ screen comp_avatar_swype():
       action Function(like)
       yalign 0.5
       xalign 0.95
+
+label dislike:
+    # $ player_say = random.choice([u"Ужас", u"Так, следующий профиль.", u"Не, не мое это.", u"Листаем дальше."])
+    # $ player(player_say)
+    jump generate_profile
 
 label swypes:
     scene bg
@@ -43,5 +51,6 @@ label choose_like_dislike:
 
 label like:
     hide screen comp_avatar_swype
+    $ player(u"Так, ну, вроде, выглядит прилично. Как раз то, что мне нужно.")
 
     jump swypes_end
