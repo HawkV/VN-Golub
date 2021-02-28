@@ -14,7 +14,7 @@
 
 define config.main_menu_music = "bruh.mp3"
 
-define config.name = _("The Question")
+define config.name = _("Last Chance")
 
 
 ## Determines if the title given above is shown on the main menu screen. Set
@@ -31,22 +31,21 @@ define config.version = _("Ren'Py 7 Edition")
 ## Text that is placed on the game's about screen. To insert a blank line
 ## between paragraphs, write \n\n.
 
-define gui.about = _("""Character Art: Deji.
-Original Character Art: derik.
-
-Background Art: Mugenjohncel.
-Original Background Art: DaFool
-
-Music By: Alessio
-
-Written By: mikey""")
+define gui.about = """
+Разработчики:
+    Код - Влад Попов и Василий Эдомин
+    Графика, GUI и текст - Екатерина Юрина
+    Музыка - Константин Ворон
+        https://vk.com/id178090763
+        https://vk.com/id222945617
+"""
 
 
 ## A short name for the game used for executables and directories in the built
 ## distribution. This must be ASCII-only, and must not contain spaces, colons,
 ## or semicolons.
 
-define build.name = "the_question"
+define build.name = "last_chance"
 
 ## Change the version used by the build system.
 define build.version = "7.0"
@@ -148,7 +147,7 @@ default preferences.afm_time = 15
 ## This generally should not be changed, and if it is, should always be a
 ## literal string, not an expression.
 
-define config.save_directory = "the_question-7"
+define config.save_directory = "last_chance-7"
 
 
 ## Icon ########################################################################
@@ -209,5 +208,3 @@ init python:
 
 ## The username and project name associated with an itch.io project, separated
 ## by a slash.
-
-define build.itch_project = "renpytom/the-question"
