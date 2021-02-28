@@ -35,6 +35,10 @@ label question:
 
     $ answer_index = random.randrange(0, len(choce_data["answers"]), 1)
     $ fake += choce_data["answers"][answer_index]["fake"]
+    python:
+        if "dating" in choce_data["answers"][answer_index]:
+            dating = choce_data["answers"][answer_index]["dating"]
+            renpy.jump("maybe_dating")
     $ comp_char(choce_data["answers"][answer_index]["text"])
     python:
         if "nextIndex" in choce_data["answers"][answer_index]:
@@ -43,5 +47,17 @@ label question:
             current_index += 1
 
     jump question
+
+label maybe_dating:
+    $ comp_char(choce_data["answers"][answer_index]["text"])
+    if not dating:
+        player "Ок, следующий"
+        jump swypes
+
+    python:
+        if fake < 3:
+            renpy.movie_cutscene("video/win.ogv")
+        else:
+            renpy.movie_cutscene("video/fake.ogv")
 
     jump dialogue_end
